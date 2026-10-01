@@ -1,0 +1,6 @@
+interface:
+  display_name: "Review or revise a Skill"
+  short_description: "Reviews a named Skill's structure/size/JIT/portability, or revises it under explicit consent."
+  default_prompt: "review"
+policy:
+  allow_implicit_invocation: true

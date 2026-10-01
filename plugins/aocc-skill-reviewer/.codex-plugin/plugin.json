@@ -1,0 +1,12 @@
+{
+  "name": "aocc-skill-reviewer",
+  "version": "0.1.0",
+  "description": "Reviews a named Agent Skill for structure, size/JIT budget, portability and script-extraction opportunities, and revises it only under explicit proposal-specific consent.",
+  "author": {
+    "name": "emilwu"
+  },
+  "homepage": "https://github.com/emilwu/skill-reviewer",
+  "repository": "https://github.com/emilwu/skill-reviewer",
+  "skills": "./skills/",
+  "license": "MIT"
+}

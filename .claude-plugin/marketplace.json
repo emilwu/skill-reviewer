@@ -1,0 +1,13 @@
+{
+  "name": "aocc-skill-reviewer",
+  "owner": {
+    "name": "emilwu"
+  },
+  "description": "Marketplace for the aocc-skill-reviewer plugin: reviews and, with explicit consent, revises Agent Skills against a 49-rule portable rubric.",
+  "plugins": [
+    {
+      "name": "aocc-skill-reviewer",
+      "source": "./plugins/aocc-skill-reviewer"
+    }
+  ]
+}

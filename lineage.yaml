@@ -1,0 +1,69 @@
+artifact: aocc-skill-reviewer
+artifact_version: "0.1.0"
+mode: standalone-l3-plugin
+generated_at: "2026-10-01"
+criteria_version: "aocc-skill-reviewer-policy-v1.0"
+fact_reporter_version: "2.1.0"
+target_runtime_profiles:
+  - "Claude Code (plugin + skill)"
+  - "Codex CLI (plugin + skill)"
+sources:
+  - id: "skill-reviewer-policy"
+    provenance_only: true
+    source_path: "agent-Em/outbox/skill-reviewer-policy-v1.md"
+    extracted_sections: ["§2 rule table (49 rules)", "§4 size/JIT ladder", "§5 script-extraction", "§6 rule-pack split", "§6.1 fact-reporter contract", "§7 revise protocol", "§8 evals C1-C7"]
+    transformation: "condensed into references/rules-*.md + mode-*.md; check_type: script rules mechanized into scripts/report_facts.py"
+    evidence_grade: "ratified"
+  - id: "ratification-2026-10-01"
+    provenance_only: true
+    source_path: "agent-chord-team/project-aocc-skill-reviewer-2026-10-01/ratification-2026-10-01.md"
+    extracted_sections: ["Q2-Q6 decisions", "G1 (<=~25KB normal-review activation)", "B2 deferred to P6"]
+    transformation: "inlined as build constraints"
+    evidence_grade: "ratified"
+  - id: "evidence-pack-v3"
+    provenance_only: true
+    source_path: "agent-chord-team/project-aocc-skill-reviewer-2026-10-01/evidence-pack.md"
+    extracted_sections: ["§2 Claude facts", "§3 Codex facts", "§2.6/§3.4 symlink table", "§3.6 Layout A", "manifest precedence (G1-F1/F2/F3/F4/F5/F6/F7)"]
+    transformation: "inlined into manifest layout + locate_skill.py discovery roots"
+    evidence_grade: "settled (per evidence-pack's own grading); some data points hedged N=1 as noted in the pack"
+  - id: "skill-audit-prior-art"
+    provenance_only: true
+    source_path: "skill-audit (sibling standalone bundle, artifact_version 1.0.0)"
+    extracted_sections: ["report_facts.py frontmatter parser + copy/reference facts", "fixtures/must-accept + must-reject R17 pattern", "standalone zero-dependency posture"]
+    transformation: "extended, not forked verbatim: added ToC/code-fence/table/directive/exec/symlink fact families, token-estimate plumbing, and manifest facts per Policy S6.1"
+    evidence_grade: "settled (reused reporter is operational prior art)"
+runtime_dependencies:
+  - name: "Python"
+    version: ">=3.9"
+    source: "target system"
+  - name: "local filesystem"
+    source: "target system"
+external_prerequisites:
+  required:
+    - "Claude Code or Codex CLI with plugin support"
+  optional:
+    - "skills-ref executable on PATH (report_facts.py SKIPs, never fails, without it)"
+  network: "not required for review or revise; this plugin makes no network calls"
+reporter_fixture_pair:
+  must_accept: "tests/fixtures/must-accept/example-skill"
+  must_reject: "tests/fixtures/must-reject/example-skill"
+  sole_intentional_difference: "one exclamation-mark byte appended to the declared copy's heading in must-reject"
+g1_budget:
+  normal_review_activation_set:
+    - "references/rules-core.md"
+    - "references/rules-structure.md"
+    - "references/rules-context.md"
+    - "references/rules-portability.md"
+    - "references/rules-safety.md"
+    - "references/mode-review.md"
+  measured_bytes_at_0_1_0: 24236
+  budget_bytes: 25600
+  excluded_from_budget: ["references/rules-evals.md (P build/release only)", "references/rules-appendices.md (dispute-only)"]
+open_items:
+  - "License: MIT (owner decision 2026-10-01) — see LICENSE."
+  - "Git remote: https://github.com/emilwu/skill-reviewer (push needs owner go-ahead)."
+  - "B2 (Codex plugin-installed model run): deferred to P6, not attempted during build."
+known_limitations:
+  - "C1-C7 eval cases under evals/ are run via tools/run_evals.py (staged plugin copy); the costed per-case runs are an owner/GM budget decision, not part of the build."
+  - "The fact reporter's reference-graph scan treats any directory mentioned in a link/backtick path as fully referenced (all files under it); a Skill that names a directory in prose without linking every file inside it will not show those files as unreferenced."
+  - "revise_support.py's verify command compares bare root-relative paths across a proposal's target roots; two different --root arguments sharing an identical relative path would collide in the changed-path set — acceptable for this reviewer's single-target-root usage, not yet handled for a genuinely multi-root proposal."
